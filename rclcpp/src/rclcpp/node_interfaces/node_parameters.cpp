@@ -561,6 +561,25 @@ NodeParameters::has_parameter(const std::string & name) const
   return __lockless_has_parameter(parameters_, name);
 }
 
+bool
+NodeParameters::is_parameter_init(const std::string & name) const 
+{
+  std::lock_guard<std::recursive_mutex> lock(mutex_);
+
+  auto param_iter = parameters_.find(name);
+  if (parameters_.end() == param_iter) {
+    return false;
+  }
+  if (
+    (param_iter->second.value.get_type() == rclcpp::ParameterType::PARAMETER_NOT_SET) &&
+    !param_iter->second.descriptor.dynamic_typing) 
+  {
+    return false;
+  } 
+  
+  return true;
+}
+
 std::vector<rcl_interfaces::msg::SetParametersResult>
 NodeParameters::set_parameters(const std::vector<rclcpp::Parameter> & parameters)
 {

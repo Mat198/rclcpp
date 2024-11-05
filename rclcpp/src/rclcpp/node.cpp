@@ -350,6 +350,12 @@ Node::has_parameter(const std::string & name) const
   return this->node_parameters_->has_parameter(name);
 }
 
+bool
+Node::is_parameter_init(const std::string & name) const
+{
+  return this->node_parameters_->is_parameter_init(name);
+}
+
 rcl_interfaces::msg::SetParametersResult
 Node::set_parameter(const rclcpp::Parameter & parameter)
 {

@@ -521,6 +521,16 @@ public:
   bool
   has_parameter(const std::string & name) const;
 
+  /// Return true if a given parameter is initialized. 
+  /**
+   * The parameter must be declared to be considered initialized.
+   * \param[in] name The name of the parameter to check for being initialized.
+   * \return true if the parameter name has been initialized, otherwise false.
+   */
+  RCLCPP_PUBLIC
+  bool
+  is_parameter_init(const std::string & name) const;
+
   /// Set a single parameter.
   /**
    * Set the given parameter and then return result of the set action.

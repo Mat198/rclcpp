@@ -101,6 +101,15 @@ public:
   bool
   has_parameter(const std::string & name) const = 0;
 
+  /// Return true if the parameter has been initialized, otherwise false.
+  /**
+   * \sa rclcpp::Node::is_parameter_init
+   */
+  RCLCPP_PUBLIC
+  virtual
+  bool
+  is_parameter_init(const std::string & name) const = 0;
+
   /// Set one or more parameters, one at a time.
   /**
    * \sa rclcpp::Node::set_parameters

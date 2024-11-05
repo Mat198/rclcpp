@@ -130,6 +130,10 @@ public:
   has_parameter(const std::string & name) const override;
 
   RCLCPP_PUBLIC
+  bool
+  is_parameter_init(const std::string & name) const override;
+
+  RCLCPP_PUBLIC
   std::vector<rcl_interfaces::msg::SetParametersResult>
   set_parameters(
     const std::vector<rclcpp::Parameter> & parameters) override;

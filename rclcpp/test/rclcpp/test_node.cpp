@@ -3120,6 +3120,29 @@ TEST_F(TestNode, static_and_dynamic_typing) {
       rclcpp::exceptions::ParameterUninitializedException);
   }
   {
+    auto param = node->declare_parameter("new_integer_parameter", 42);
+    auto init = node->is_parameter_init("new_integer_parameter");
+    EXPECT_EQ(true, init);
+    EXPECT_EQ(42, param);
+  }
+  {
+    auto init = node->is_parameter_init("not_declared_parameter");
+    EXPECT_EQ(false, init);
+    // Throws if not set before access
+    EXPECT_THROW(
+      node->get_parameter("not_declared_parameter"),
+      rclcpp::exceptions::ParameterNotDeclaredException);
+  }
+  {
+    node->declare_parameter("integer_override_not_given", rclcpp::PARAMETER_INTEGER);
+    auto init = node->is_parameter_init("integer_override_not_given");
+    EXPECT_EQ(false, init);
+    // Throws if not set before access
+    EXPECT_THROW(
+      node->get_parameter("integer_override_not_given"),
+      rclcpp::exceptions::ParameterUninitializedException);
+  }
+  {
     auto param = node->declare_parameter("integer_set_after_declare", rclcpp::PARAMETER_INTEGER);
     EXPECT_EQ(rclcpp::PARAMETER_NOT_SET, param.get_type());
     auto result = node->set_parameter(rclcpp::Parameter{"integer_set_after_declare", 44});

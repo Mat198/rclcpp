@@ -397,6 +397,10 @@ public:
   bool
   has_parameter(const std::string & name) const;
 
+  RCLCPP_LIFECYCLE_PUBLIC
+  bool
+  is_parameter_init(const std::string & name) const;
+
   /// Set a single parameter.
   /**
    * \sa rclcpp::Node::set_parameter
